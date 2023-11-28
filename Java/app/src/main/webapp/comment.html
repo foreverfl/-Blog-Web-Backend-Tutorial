@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>댓글 페이지</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ececec;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .comment-box {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(39, 39, 39, 0.1);
+        width: 300px;
+      }
+      .comment-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+      .comment-submit {
+        width: 100%;
+        padding: 10px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .comment-submit:hover {
+        background-color: darkblue;
+      }
+      .comment-list {
+        margin-top: 20px;
+        list-style-type: none;
+        padding: 0;
+      }
+      .comment-item {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        position: relative;
+      }
+      .comment-delete {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>ㅇㅇㅇ님, 환영합니다.</h2>
+    </div>
+    <div class="comment-box">
+      <textarea
+        class="comment-input"
+        placeholder="댓글을 작성하세요..."
+      ></textarea>
+      <button class="comment-submit">댓글 작성</button>
+      <ul class="comment-list"></ul>
+    </div>
+
+    <script>
+      document
+        .querySelector(".comment-submit")
+        .addEventListener("click", function () {
+          var input = document.querySelector(".comment-input");
+          var text = input.value.trim();
+          if (text) {
+            var li = document.createElement("li");
+            li.className = "comment-item";
+            li.textContent = text;
+            var deleteBtn = document.createElement("span");
+            deleteBtn.textContent = "X";
+            deleteBtn.className = "comment-delete";
+            deleteBtn.onclick = function () {
+              li.remove();
+            };
+            li.appendChild(deleteBtn);
+            document.querySelector(".comment-list").appendChild(li);
+            input.value = "";
+          }
+        });
+    </script>
+  </body>
+</html>

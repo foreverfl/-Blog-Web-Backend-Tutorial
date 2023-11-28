@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>회원가입 페이지</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #ececec;
+      }
+      .signup-form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(39, 39, 39, 0.1);
+        text-align: center;
+      }
+      .form-input {
+        margin-bottom: 10px;
+      }
+      .form-input input {
+        width: 80%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 5px;
+      }
+      .form-actions {
+        text-align: center;
+      }
+      .form-actions button {
+        padding: 8px 15px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .form-actions button:hover {
+        background-color: darkblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-form">
+      <h2>회원가입</h2>
+      <div class="form-input">
+        <input type="text" id="username" name="username" placeholder="아이디" />
+      </div>
+      <div class="form-input">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="패스워드"
+        />
+      </div>
+      <div class="form-actions">
+        <button type="submit">회원가입</button>
+        <button type="button">취소</button>
+      </div>
+    </div>
+  </body>
+</html>
