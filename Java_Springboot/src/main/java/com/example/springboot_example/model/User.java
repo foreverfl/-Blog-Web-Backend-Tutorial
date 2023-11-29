@@ -1,10 +1,14 @@
 package com.example.springboot_example.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "users") // user는 예약어라 사용 불가
 public class User {
@@ -14,18 +18,17 @@ public class User {
 
     @Column(unique = true)
     private String username;
-    private String name;
     private String password;
 
-    // 기본 생성자
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
     public User() {
     }
 
-    // 모든 필드를 초기화하는 생성자
-    public User(Long id, String username, String name, String password) {
+    public User(Long id, String username, String password) {
         this.id = id;
         this.username = username;
-        this.name = name;
         this.password = password;
     }
 
@@ -35,10 +38,6 @@ public class User {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getPassword() {
@@ -53,10 +52,6 @@ public class User {
         this.username = username;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -67,7 +62,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
