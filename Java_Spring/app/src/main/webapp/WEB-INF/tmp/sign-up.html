@@ -1,0 +1,106 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>회원가입</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #ececec;
+      }
+      .signup-form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(39, 39, 39, 0.1);
+        text-align: center;
+      }
+      .signup-form h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .form-input {
+        margin-bottom: 10px;
+      }
+      .form-input input {
+        width: 80%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 5px;
+      }
+      .form-actions {
+        text-align: center;
+      }
+      .form-actions button {
+        padding: 8px 15px;
+        background-color: blue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .form-actions button:hover {
+        background-color: darkblue;
+      }
+
+      /* 취소 버튼 */
+      .form-actions .button-style {
+        background-color: blue;
+        color: white;
+        text-decoration: none; /* 링크 밑줄 제거 */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .form-actions .button-style:hover {
+        background-color: darkblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-form">
+      <form id="signup-form" th:action="@{/sign_up_process}" method="post"> 
+        <h2>회원가입</h2>
+        <div class="form-input">
+          <input type="text" id="username" name="username" placeholder="아이디" />
+        </div>
+        <div class="form-input">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="패스워드"
+          />
+        </div>
+        <div class="form-actions">
+          <button type="submit">회원가입</button>
+          <a th:href="@{/}" class="button-style"><button type="button">취소</button></a>
+        </div>
+     </form>
+    </div>
+  </body>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('signup-form').addEventListener('submit', function(e) {
+        e.preventDefault(); // 기본 제출 이벤트 중단
+    
+        var username = document.getElementById('username').value;
+    
+        // AJAX 요청으로 서버에 아이디 중복 체크
+        fetch('/check_username?username=' + encodeURIComponent(username))
+          .then(response => response.json())
+          .then(isUsernameTaken => {
+            if (isUsernameTaken) {
+              alert('이미 존재하는 아이디입니다.');
+            } else {
+              // 중복이 아닌 경우 폼 제출
+              e.target.submit();
+            }
+          });
+      });
+    });
+    </script>
+</html>

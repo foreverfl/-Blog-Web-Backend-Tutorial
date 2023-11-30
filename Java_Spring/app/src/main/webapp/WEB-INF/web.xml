@@ -1,0 +1,25 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!-- 서블릿 정의: 스프링의 DispatcherServlet을 구성 -->
+    <servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 초기화 파라미터: 스프링 구성 파일 위치 지정 -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup> <!-- 서블릿 로드 순서 -->
+    </servlet>
+
+    <!-- 서블릿 매핑: 모든 URL을 DispatcherServlet으로 라우팅 -->
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/</url-pattern> <!-- 모든 요청을 해당 서블릿으로 매핑 -->
+    </servlet-mapping>
+
+</web-app>
