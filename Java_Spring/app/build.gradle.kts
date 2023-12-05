@@ -42,6 +42,9 @@ dependencies {
     // Tomcat for running servlets and JSP
     implementation("org.apache.tomcat.embed:tomcat-embed-jasper:10.1.16")
 
+    // Json
+    implementation("com.fasterxml.jackson.core:jackson-core:2.16.0")
+
     // Mybatis
     implementation("org.mybatis:mybatis:3.5.14")
     implementation("org.mybatis:mybatis-spring:3.0.3")

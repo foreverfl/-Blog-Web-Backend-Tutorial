@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
   <head>
     <title>회원가입</title>
@@ -55,7 +56,7 @@
         border-radius: 5px;
         cursor: pointer;
       }
-      
+
       .form-actions .button-style:hover {
         background-color: darkblue;
       }
@@ -63,40 +64,61 @@
   </head>
   <body>
     <div class="signup-form">
-        <form id="signup-form" action="<c:url value='/sign_up_process'/>" method="post">
-            <h2>회원가입</h2>
-            <div class="form-input">
-                <input type="text" id="username" name="username" placeholder="아이디" />
-            </div>
-            <div class="form-input">
-                <input type="password" id="password" name="password" placeholder="패스워드" />
-            </div>
-            <div class="form-actions">
-                <button type="submit">회원가입</button>
-                <a href="<c:url value='/'/>" class="button-style"><button type="button">취소</button></a>
-            </div>
-        </form>
+      <form
+        id="signup-form"
+        action="${pageContext.request.contextPath}/sign_up_process"
+        method="post"
+      >
+        <h2>회원가입</h2>
+        <div class="form-input">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="아이디"
+          />
+        </div>
+        <div class="form-input">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="패스워드"
+          />
+        </div>
+        <div class="form-actions">
+          <button type="submit">회원가입</button>
+          <a href="${pageContext.request.contextPath}/" class="button-style"
+            ><button type="button">취소</button></a
+          >
+        </div>
+      </form>
     </div>
   </body>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('signup-form').addEventListener('submit', function(e) {
-        e.preventDefault(); // 기본 제출 이벤트 중단
-    
-        var username = document.getElementById('username').value;
-    
-        // AJAX 요청으로 서버에 아이디 중복 체크
-        fetch('/check_username?username=' + encodeURIComponent(username))
-          .then(response => response.json())
-          .then(isUsernameTaken => {
-            if (isUsernameTaken) {
-              alert('이미 존재하는 아이디입니다.');
-            } else {
-              // 중복이 아닌 경우 폼 제출
-              e.target.submit();
-            }
-          });
-      });
+    document.addEventListener("DOMContentLoaded", function () {
+      document
+        .getElementById("signup-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // 기본 제출 이벤트 중단
+
+          var username = document.getElementById("username").value;
+
+          // AJAX 요청으로 서버에 아이디 중복 체크
+          fetch(
+            "http://localhost:8080/app/check_username?username=" +
+              encodeURIComponent(username)
+          )
+            .then((response) => response.json())
+            .then((isUsernameTaken) => {
+              if (isUsernameTaken) {
+                alert("이미 존재하는 아이디입니다.");
+              } else {
+                // 중복이 아닌 경우 폼 제출
+                e.target.submit();
+              }
+            });
+        });
     });
-    </script>
+  </script>
 </html>

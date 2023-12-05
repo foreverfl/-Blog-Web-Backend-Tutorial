@@ -95,6 +95,14 @@
       }
       .comment-submit:hover {
         background-color: darkblue;
+      }    
+      .comment-submit:disabled {
+          background-color: gray; /* 비활성화 상태일 때의 배경색 */
+          cursor: default; /* 비활성화 상태일 때의 커서 */
+          opacity: 0.7; /* 비활성화 상태일 때의 투명도 */
+      }      
+      .comment-submit:disabled:hover {
+          background-color: gray; /* 비활성화 상태일 때의 hover 효과 제거 */
       }
       .comment-list {
         margin-top: 20px;
@@ -122,32 +130,33 @@
   </head>
   <body>
     <div class="header">
-      <h2 th:text="${session.user.username} + '님, 환영합니다.'">ㅇㅇㅇ님, 환영합니다.</h2>
-      <div class="header-actions">
-        <a th:href="@{/withdrawal}" id="withdrawal"  class="header-button">회원탈퇴</a>
+      <h2 th:if="${session != null and session.user != null}" th:text="${session.user.username} + '님, 환영합니다.'">
+         ㅇㅇㅇ님, 환영합니다.
+      </h2>
+      <h2 th:unless="${session != null and session.user != null}">
+          환영합니다.
+      </h2>
+      <div class="header-actions" th:if="${session != null and session.user != null}">
+        <a th:href="@{/withdrawal}" id="withdrawal" class="header-button">회원탈퇴</a>
         <a th:href="@{/sign_out}" class="header-button">로그아웃</a>
       </div>
     </div>
     <div class="comment-box">
       <div class="comment-form"> 
         <textarea class="comment-input" placeholder="댓글을 작성하세요..."></textarea>
-        <button class="comment-submit">댓글 작성</button>
+        <button class="comment-submit" th:disabled="${session == null or session.user == null}">댓글 작성</button>
       </div>
       <ul class="comment-list">
         <li th:each="comment : ${comments}">
           <span th:text="${comment.user.username} + ': ' + ${comment.text}"></span>
-          <span th:if="${comment.user.username == session.user.username}"
-          class="comment-delete" th:attr="data-comment-id=${comment.id}">X</span>
+          <span th:if="${session != null and session.user != null and comment.user.username == session.user.username}"
+              class="comment-delete" th:attr="data-comment-id=${comment.id}">X</span>
         </li>
       </ul>
     </div>
   </body>
 
   <script th:inline="javascript">
-    /*<![CDATA[*/
-    var username = [[${session.user.username}]];
-    /*]]>*/
-
     // 회원 탈퇴 확인
     document.addEventListener('DOMContentLoaded', function() {
       var withdrawalButton = document.querySelector('#withdrawal');

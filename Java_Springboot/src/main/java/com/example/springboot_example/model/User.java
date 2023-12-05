@@ -10,7 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
-@Entity(name = "users") // user는 예약어라 사용 불가
+@Entity(name = "users") // User는 예약어라 사용 불가
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

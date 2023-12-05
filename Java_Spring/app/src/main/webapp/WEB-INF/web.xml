@@ -21,5 +21,4 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>/</url-pattern> <!-- 모든 요청을 해당 서블릿으로 매핑 -->
     </servlet-mapping>
-
 </web-app>

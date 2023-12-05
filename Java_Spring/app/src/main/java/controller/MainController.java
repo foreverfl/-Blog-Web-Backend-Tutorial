@@ -3,6 +3,7 @@ package controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,7 +67,7 @@ public class MainController {
     }
 
     @PostMapping("/sign_up_process")
-    public String signUpProcess(@RequestParam String username, @RequestParam String password) {
+    public String signUpProcess(@RequestParam("username") String username, @RequestParam("password") String password) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
@@ -76,10 +77,9 @@ public class MainController {
 
     @GetMapping("/check_username")
     @ResponseBody
-    public boolean checkUsername(@RequestParam("username") String username) {
-        User user = userDao.findByUsername(username); // 사용자 이름으로 User 객체 찾기
-        System.out.println(user.toString());
-        return user != null; // 사용자 이름이 이미 존재하면 true, 그렇지 않으면 false 반환
+    public Map<String, Boolean> checkUsername(@RequestParam("username") String username) {
+        Optional<User> user = userDao.findByUsername(username);
+        return Map.of("exists", user.isPresent());
     }
 
     // 댓글 페이지
